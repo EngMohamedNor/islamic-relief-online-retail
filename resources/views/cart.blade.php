@@ -99,6 +99,12 @@
  
     <script type="text/javascript">
 
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+ 
+
+});
+
 function checkout_with_evc(){
     // validate
 if($("#delivery_address").val()=="")
@@ -180,5 +186,4 @@ function submit_order(){
 
 @endsection
 
-
-    
+ 

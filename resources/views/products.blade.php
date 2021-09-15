@@ -15,8 +15,8 @@
 
             @foreach($products as $product)
                 <div class="col-xs-18 col-sm-6 col-md-3">
-                    <div class="thumbnail">
-                        <img src="{{ $product->photo }}" width="500" height="300">
+                    <div class="thumbnail product_box">
+                        <img src="{{ $product->photo }}" width="500" height="240">
                         <div class="caption">
                             <h4>{{ $product->name }}</h4>
                             <p>{{ \Illuminate\Support\Str::limit(strtolower($product->description), 50) }}</p>
