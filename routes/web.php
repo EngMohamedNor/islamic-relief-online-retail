@@ -25,7 +25,17 @@ Route::get('add-to-cart/{id}', 'ProductsController@addToCart');
 Route::patch('update-cart', 'ProductsController@update');
 Route::delete('remove-from-cart', 'ProductsController@remove');
 
-Route::post('/orders/submit-order', 'OrdersController@submit_order');
-
+Route::post('/orders/submit-order', 'OrdersController@submitOrder');
+Route::post('/orders/update-status', 'OrdersController@updateStatus');
 
 Route::get('/orders/receipt/{id}', 'OrdersController@receipt');
+
+
+Route::get('/customer-orders/', 'OrdersController@customerOrders');
+
+Route::get('/admin/', 'AdminController@index');
+
+Route::get('/admin/orders/', 'AdminController@orders');
+
+Route::get('/admin/get-orders/', 'AdminController@getOrders');
+

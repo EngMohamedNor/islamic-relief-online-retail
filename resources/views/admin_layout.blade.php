@@ -93,10 +93,8 @@
           </div>
           <div class="header-bottom-right">
             <div class="account">
-              <a href="/customer-orders"><span> </span>MY ORDERS</a>
+              <a href="/customer/account"><span> </span>YOUR ACCOUNT</a>
             </div>
-             
-           
             <ul class="login" style="margin-right:20px !important">
               <li>
                 <a href="/login"><span> </span>LOGIN</a>

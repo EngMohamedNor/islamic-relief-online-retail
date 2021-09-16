@@ -14,10 +14,10 @@ use App\Models\Order_Detail;
 
 class OrdersController extends Controller
 {
-    public function submit_order(Request $request)
+    public function submitOrder(Request $request)
     {
             $delivery_address=$request->request->get('delivery_address');
-
+            $payment_method=$request->request->get('payment_method');
         $cart = session()->get('cart');
      
      
@@ -29,6 +29,7 @@ class OrdersController extends Controller
           $user = Order::create([
             'customer_id' => '1',
             'delivery_address' => $delivery_address,
+            'payment_method'=>$payment_method,
             'total' => $total,
             'status' => 'Open',
         ]);
@@ -62,11 +63,42 @@ class OrdersController extends Controller
           session()->put('cart', null);
 
           return response()->json([
-            'order_id' => $order_id
-            
+            'order_id' => $order_id     
         ]);
 
           
+    }
+
+
+
+    public function customerOrders(){
+
+      $orders = DB::table('orders as o')->select('o.*')->get();
+      
+      return view('customer_orders',compact('orders'));
+    }
+    public function updateStatus(Request $request)
+    {
+      try{
+
+     
+      $id=$request->request->get('id');
+      $status=$request->request->get('status');
+
+      $order = Order::find($id);
+      $order->status = $status;
+      $order->save();
+     
+    }catch(exception $e){
+      return response()->json([
+        'success'=>true,
+        'message' => $e->getMessage()  
+    ]);
+    }
+      return response()->json([
+        'success'=>true,
+        'message' => "Order updated"    
+    ]);
     }
 
     public function receipt(Request $request, $id )

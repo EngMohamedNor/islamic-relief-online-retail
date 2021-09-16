@@ -112,12 +112,10 @@ if($("#delivery_address").val()=="")
 
 return;
 }
-
-
 var dialog = bootbox.dialog({
     title: 'Processing Your Order',
    closeButton: false
-, message: '<p><i class="fa fa-spin fa-spinner"></i> Processing with Evc API .., please accept the payment from your phone...   </p>'
+, message: '<h3><i class="fa fa-spin fa-spinner"></i> Processing with Evc API .., please accept the payment from your phone... [ Here we can integrate with EVC PLUS API ]   </h3>'
 });
 dialog.init(function(){
     setTimeout(function(){
@@ -125,7 +123,7 @@ dialog.init(function(){
 
         setTimeout(() => {
             bootbox.hideAll();
-            submit_order();
+            submit_order("EVC PLUS API");
         }, 1000);
      
 
@@ -135,13 +133,43 @@ dialog.init(function(){
    
 }
 
-function submit_order(){
+
+function checkout_with_paypal(){
+    // validate
+if($("#delivery_address").val()=="")
+{alert("Please Enter Delivery address");
+
+return;
+}
+var dialog = bootbox.dialog({
+    title: 'Processing Your Order',
+   closeButton: false
+, message: '<h3><i class="fa fa-spin fa-spinner"></i> Processing with PAYPAL.. PLease Wait [ Here we can integrate with Paypal API ]   </h3>'
+});
+dialog.init(function(){
+    setTimeout(function(){
+        dialog.find('.bootbox-body').html(`<i class='fa fa-check-circle'> </i> Successfully Paid Paypal `);
+
+        setTimeout(() => {
+            bootbox.hideAll();
+            submit_order("PAYPAL");
+        }, 1000);
+     
+
+    }, 3000);
+});
+
+   
+}
+
+function submit_order(payment_method){
     $.ajax({
                url: '{{ url('/orders/submit-order') }}',
                method: "post",
                data: {
                    _token: '{{ csrf_token() }}', 
                delivery_address: $("#delivery_address").val(), 
+               payment_method:payment_method
               },
                success: function (response) {
                   
