@@ -66,10 +66,10 @@
             
 
             <td>   Your Name
-    <input type="text" readonly class="form-control" name="name"/>
+    <input type="text" readonly class="form-control"  value="{{ Auth::user()->name }}"/>
 
     Your Phone
-    <input type="text" readonly class="form-control" name="phone"/>
+    <input type="text"   class="form-control" id="customer_phone"/>
     Delivery Address
     <input type="text"  class="form-control" id="delivery_address"/>
 </td>
@@ -78,10 +78,10 @@
          
 <strong>Total ${{ $total }}</strong> <hr>
 
-    <button class="btn btn-success" style="width:100%" onclick="checkout_with_evc()">
+    <button class="btn btn-success" style="width:100%" >
         Checkout with EVC Plus
 </button> <br>
-<button class="btn btn-primary" style="width:100%">
+<button class="btn btn-primary" style="width:100%"  onclick="checkout_with_paypal()" >
         Checkout with PayPal
 </button>
         </td>
@@ -107,15 +107,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function checkout_with_evc(){
     // validate
-if($("#delivery_address").val()=="")
-{alert("Please Enter Delivery address");
+    if($("#delivery_address").val()=="" || $("#customer_name").val()=="" || $("#customer_phone").val()=="")
+{alert("Please Enter Reuired Information, Your  Phone and Address");
+
+return;
+}
 
 return;
 }
 var dialog = bootbox.dialog({
     title: 'Processing Your Order',
    closeButton: false
-, message: '<h3><i class="fa fa-spin fa-spinner"></i> Processing with Evc API .., please accept the payment from your phone... [ Here we can integrate with EVC PLUS API ]   </h3>'
+, message: '<h4><i class="fa fa-spin fa-spinner"></i> Processing with Evc API .., please accept the payment from your phone... [ Here we can integrate with EVC PLUS API ]   </h4>'
 });
 dialog.init(function(){
     setTimeout(function(){
@@ -124,10 +127,10 @@ dialog.init(function(){
         setTimeout(() => {
             bootbox.hideAll();
             submit_order("EVC PLUS API");
-        }, 1000);
+        }, 2000);
      
 
-    }, 3000);
+    }, 4000);
 });
 
    
@@ -136,15 +139,15 @@ dialog.init(function(){
 
 function checkout_with_paypal(){
     // validate
-if($("#delivery_address").val()=="")
-{alert("Please Enter Delivery address");
+if($("#delivery_address").val()=="" || $("#customer_name").val()=="" || $("#customer_phone").val()=="")
+{alert("Please Enter Reuired Information, Your  Phone and Address");
 
 return;
 }
 var dialog = bootbox.dialog({
     title: 'Processing Your Order',
    closeButton: false
-, message: '<h3><i class="fa fa-spin fa-spinner"></i> Processing with PAYPAL.. PLease Wait [ Here we can integrate with Paypal API ]   </h3>'
+, message: '<h4><i class="fa fa-spin fa-spinner"></i> Processing with PAYPAL.. PLease Wait [ Here we can integrate with Paypal API ]   </h4>'
 });
 dialog.init(function(){
     setTimeout(function(){
@@ -153,10 +156,10 @@ dialog.init(function(){
         setTimeout(() => {
             bootbox.hideAll();
             submit_order("PAYPAL");
-        }, 1000);
+        }, 2000);
      
 
-    }, 3000);
+    }, 4000);
 });
 
    
@@ -169,7 +172,9 @@ function submit_order(payment_method){
                data: {
                    _token: '{{ csrf_token() }}', 
                delivery_address: $("#delivery_address").val(), 
-               payment_method:payment_method
+               payment_method:payment_method,
+              
+               customer_phone:$("#customer_phone").val()
               },
                success: function (response) {
                   

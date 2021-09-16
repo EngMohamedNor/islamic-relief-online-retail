@@ -4,11 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+ 
+use App\Models\User;
+use Hash;
+use Auth;
 class ProductsController extends Controller
 {
     public function index()
     {
+
+        $users = User::count();  
+        if($users == 0){
+                User::create([
+                    'name' => 'Mr. Admin',
+                    'email' => 'admin@gmail.com',
+                    'role' => 'admin',
+                    'password' => Hash::make('12345678'),
+                ]);
+
+            }
+           
+
+         
+
+
         $products = Product::all();
         return view('products', compact('products'));
     }
@@ -18,6 +37,11 @@ class ProductsController extends Controller
         if(!$cart) {
             return redirect("/");
         }
+
+        if (!Auth::user()){
+            return view('auth/login');
+        }
+
         return view('cart');
     }
      

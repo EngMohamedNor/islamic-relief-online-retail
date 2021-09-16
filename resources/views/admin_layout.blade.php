@@ -65,7 +65,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="top-header-right">
-            <div class="down-top">
+          <div class="down-top">
               <select class="in-drop">
                 <option value="English" class="in-of">English</option>
                 
@@ -77,6 +77,19 @@
                  
               </select>
             </div>
+                      @guest
+                          
+                        @else
+
+                    &nbsp;
+                    &nbsp;&nbsp;&nbsp;
+              <span  class="in-of"><span> </span>{{ Auth::user()->name }}</span>
+                 
+                        @endguest
+
+                     
+
+           
             <div class="clearfix"></div>
           </div>
           <div class="clearfix"></div>
@@ -92,76 +105,52 @@
             <div class="clearfix"></div>
           </div>
           <div class="header-bottom-right">
-            <div class="account">
-              <a href="/customer/account"><span> </span>YOUR ACCOUNT</a>
+             
+          @guest
+                          
+                          @else
+  
+                          <div class="account">
+              <a href="/admin/orders"><span> </span> Manage Orders</a>
             </div>
-            <ul class="login" style="margin-right:20px !important">
+                          @endguest
+           
+               
+             
+           
+            
+
+              @guest
+                            @if (Route::has('login'))
+                            <ul class="login">
               <li>
-                <a href="/login"><span> </span>LOGIN</a>
-              </li>
+                            <a href="{{ route('login') }}"><span> </span>{{ __('Login') }}</a>
+</li> </ul> 
+                            @endif
+
+                            
+                        @else
+                        <ul class="login">
+              <li>
+                        <a  href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                     <span> </span>{{ __('Logout') }}</a>
+                                                     </li> </ul> 
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                        @endguest
+
+
+                
+               
               
-              <li><a href="#">&nbsp;&nbsp; </a></li>
+              
             </ul>
            
 
-            <div  class="dropdown  btn btn-danger" style="  margin-top:-30px;margin-left:10px !important;color:white">
-            <div class=" " data-toggle="dropdown">
-              <a href="#" style="color:white"><span> </span>  <i class="fa fa-shopping-cart" aria-hidden="true"></i> CART {{ count((array) session('cart')) }}</a>
-            </div>
-
-              <!-- <button type="button" class="btn btn-info" >
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart
-                <span class="badge badge-pill badge-danger"
-                  >{{ count((array) session('cart')) }}</span
-                >
-              </button> -->
-
-
-              <div class="dropdown-menu">
-                <div class="row total-header-section">
-                  <div class="col-lg-6 col-sm-6 col-6">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    <span class="badge badge-pill badge-danger"
-                      >{{ count((array) session('cart')) }}</span
-                    >
-                  </div>
-
-                  <?php $total = 0 ?>
-                  @foreach((array) session('cart') as $id => $details)
-                  <?php $total += $details['price'] * $details['qty'] ?>
-                  @endforeach
-
-                  <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
-                    <p>Total: <span class="text-info">$ {{ $total }}</span></p>
-                  </div>
-                </div>
-
-                @if(session('cart')) @foreach(session('cart') as $id =>
-                $details)
-                <div class="row cart-detail">
-                  <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                    <img src="{{ $details['photo'] }}" />
-                  </div>
-                  <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                    <p>{{ $details['name'] }}</p>
-                    <span class="price text-info">
-                      ${{ $details['price'] }}</span
-                    >
-                    <span class="count"> Quantity:{{ $details['qty'] }}</span>
-                  </div>
-                </div>
-                @endforeach @endif
-                <div class="row">
-                  <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
-                    <a
-                      href="{{ url('cart') }}"
-                      class="btn btn-warning btn-block text-center"
-                      >Checkout</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
+        
             <div class="clearfix"></div>
           </div>
           <div class="clearfix"></div>

@@ -11,13 +11,16 @@ use App\Models\Order;
 use App\Models\Order_Detail;
  
 
-
+use Auth;
 class OrdersController extends Controller
 {
     public function submitOrder(Request $request)
     {
             $delivery_address=$request->request->get('delivery_address');
             $payment_method=$request->request->get('payment_method');
+            $customer_name=$request->request->get('customer_name');
+            $customer_phone=$request->request->get('customer_phone');
+            
         $cart = session()->get('cart');
      
      
@@ -32,6 +35,10 @@ class OrdersController extends Controller
             'payment_method'=>$payment_method,
             'total' => $total,
             'status' => 'Open',
+            'customer_name'=>Auth::user()->name,
+            'customer_phone'=>$customer_phone,
+            'user_id'=>Auth::user()->id
+
         ]);
         $user->save();
         

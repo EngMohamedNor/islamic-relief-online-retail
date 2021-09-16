@@ -84,11 +84,11 @@ Invoice #
 <div>
 <strong>${data[0].customer_name}</strong>
 </div>
-<div>${data[0].customer_address}</div>
-<div>Email :${data[0].customer_email}</div>
+<div>${data[0].delivery_address}</div>
+ 
 <div>Phone: ${data[0].customer_phone}</div>
  
-<div>Invoice Date: ${data[0].order_date}</div>
+<div>Invoice Date/Time: ${data[0].order_date}</div>
 </div>
 
 

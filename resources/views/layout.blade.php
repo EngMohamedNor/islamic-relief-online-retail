@@ -65,7 +65,7 @@
             <div class="clearfix"></div>
           </div>
           <div class="top-header-right">
-            <div class="down-top">
+          <div class="down-top">
               <select class="in-drop">
                 <option value="English" class="in-of">English</option>
                 
@@ -77,6 +77,19 @@
                  
               </select>
             </div>
+                      @guest
+                          
+                        @else
+
+                    &nbsp;
+                    &nbsp;&nbsp;&nbsp;
+              <span  class="in-of"><span> </span>{{ Auth::user()->name }}</span>
+                 
+                        @endguest
+
+                     
+
+           
             <div class="clearfix"></div>
           </div>
           <div class="clearfix"></div>
@@ -92,15 +105,55 @@
             <div class="clearfix"></div>
           </div>
           <div class="header-bottom-right">
-            <div class="account">
-              <a href="/customer-orders"><span> </span>MY ORDERS</a>
+             
+          @guest
+                          
+                          @else
+  
+                          <div class="account">
+                        @if(Auth::user()->role==="admin")
+                          <a href="/admin/orders"><span> </span>Admin Dashboard</a>
+                        
+                           
+                        @else
+                        
+                          <a href="/customer-orders"><span> </span>MY ORDERS</a>
+                        
+                        @endif
+
             </div>
+                          @endguest
+           
+               
              
            
-            <ul class="login" style="margin-right:20px !important">
+            
+
+              @guest
+                            @if (Route::has('login'))
+                            <ul class="login">
               <li>
-                <a href="/login"><span> </span>LOGIN</a>
-              </li>
+                            <a href="{{ route('login') }}"><span> </span>{{ __('Login') }}</a>
+</li> </ul> 
+                            @endif
+
+                            
+                        @else
+                        <ul class="login">
+              <li>
+                        <a  href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                     <span> </span>{{ __('Logout') }}</a>
+                                                     </li> </ul> 
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                        @endguest
+
+
+                
+               
               
               <li><a href="#">&nbsp;&nbsp; </a></li>
             </ul>
