@@ -80,7 +80,7 @@ class OrdersController extends Controller
 
     public function customerOrders(){
 
-      $orders = DB::table('orders as o')->select('o.*')->get();
+      $orders = DB::table('orders as o')->select('o.*')->where('user_id', '=', Auth::user()->id) ->get();
       
       return view('customer_orders',compact('orders'));
     }
