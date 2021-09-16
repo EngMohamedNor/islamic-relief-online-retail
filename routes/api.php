@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/orders/receipt/{id}', 'ApiController@receipt');
+Route::get('/orders/list/', 'ApiController@orders');

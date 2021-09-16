@@ -19,4 +19,18 @@ class ApiController extends Controller
   
             return $res;
       }
+
+
+
+      public function orders(){
+
+       
+       
+          $res = DB::table('orders as o')->select('o.*','p.name','d.product_id','d.qty','d.price', 'd.sub_total')
+            ->join('order__details as d','o.id','=','d.order_id') 
+            ->join('products as p','d.product_id','=','p.id')->get();
+  
+  
+            return $res;
+      }
 }
