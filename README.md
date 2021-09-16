@@ -1,5 +1,5 @@
 
-This app was build according to the requirements of  the assessment
+This app was built according to the requirements of  the assessment
 
 Main Modules:
 
