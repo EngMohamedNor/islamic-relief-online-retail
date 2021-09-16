@@ -16,7 +16,7 @@
 @endif
 
     <div class="container products">
-
+<h1> We have Special Discounts </h1>
         <div class="row">
 
             @foreach($products as $product)
