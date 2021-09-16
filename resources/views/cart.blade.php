@@ -78,7 +78,7 @@
          
 <strong>Total ${{ $total }}</strong> <hr>
 
-    <button class="btn btn-success" style="width:100%" >
+    <button class="btn btn-success" style="width:100%" onclick="checkout_with_evc()" >
         Checkout with EVC Plus
 </button> <br>
 <button class="btn btn-primary" style="width:100%"  onclick="checkout_with_paypal()" >
@@ -108,13 +108,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 function checkout_with_evc(){
     // validate
     if($("#delivery_address").val()=="" || $("#customer_name").val()=="" || $("#customer_phone").val()=="")
-{alert("Please Enter Reuired Information, Your  Phone and Address");
+{
+    
+    alert("Please Enter Reuired Information, Your  Phone and Address");
 
 return;
 }
 
-return;
-}
+ 
+
 var dialog = bootbox.dialog({
     title: 'Processing Your Order',
    closeButton: false
@@ -133,8 +135,8 @@ dialog.init(function(){
     }, 4000);
 });
 
-   
 }
+
 
 
 function checkout_with_paypal(){
@@ -162,8 +164,8 @@ dialog.init(function(){
     }, 4000);
 });
 
-   
 }
+
 
 function submit_order(payment_method){
     $.ajax({
